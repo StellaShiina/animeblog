@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Heart, Coffee, Globe, Github, X, Mail, Code2, Palette, Sparkles } from 'lucide-react';
+
+const stats = [
+	{ label: '项目代码', value: 'Open Source', icon: Github },
+	{ label: '开发者', value: 'Anime Lover', icon: Heart },
+	{ label: '维护时间', value: '2024-至今', icon: Globe },
+];
+
+const techStack = [
+	{ name: 'Astro 6', color: 'bg-[#ff5d01]/10 text-[#ff5d01]' },
+	{ name: 'Tailwind CSS', color: 'bg-[#38bdf8]/10 text-[#38bdf8]' },
+	{ name: 'React', color: 'bg-[#61dafb]/10 text-[#61dafb]' },
+	{ name: 'Framer Motion', color: 'bg-[#ff0055]/10 text-[#ff0055]' },
+	{ name: 'MDX', color: 'bg-[#fcb32c]/10 text-[#fcb32c]' },
+	{ name: 'Lucide Icons', color: 'bg-[#ea580c]/10 text-[#ea580c]' },
+];
+---
+
+<BaseLayout title="关于本站 - AnimeBlog" description="了解更多关于 AnimeBlog 的故事">
+	<div id="music-use-default" style="display: none;"></div>
+	<div class="max-w-4xl mx-auto space-y-16 py-12">
+		{/* Hero Section */}
+		<section class="text-center space-y-8">
+			<div class="inline-flex p-6 rounded-full bg-primary/10 text-primary animate-pulse">
+				<Sparkles size={48} />
+			</div>
+			<div class="space-y-4">
+				<h1 class="text-5xl md:text-7xl font-black text-primary">关于 AnimeBlog</h1>
+				<p class="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+					这是我的 ACGN 文化分享博客
+					<br />
+					为了铭记无可复刻的感动瞬间
+				</p>
+			</div>
+		</section>
+
+		{/* Grid Content */}
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			{/* Mission */}
+			<div class="cute-card space-y-6">
+				<div class="flex items-center gap-4 text-primary font-black text-2xl">
+					<div class="p-3 rounded-2xl bg-primary/10">
+						<Palette size={24} />
+					</div>
+					<span>源于</span>
+				</div>
+				<p class="text-muted-foreground leading-loose">
+					我想要记录这一刻的想法，希望将来的我能够回味起此时此刻的感动。也希望，我能借这种方式向你分享我此刻，过去与未来的思绪。
+				</p>
+			</div>
+
+			{/* Tech */}
+			<div class="cute-card space-y-6">
+				<div class="flex items-center gap-4 text-primary font-black text-2xl">
+					<div class="p-3 rounded-2xl bg-primary/10">
+						<Code2 size={24} />
+					</div>
+					<span>实现</span>
+				</div>
+				<p class="text-muted-foreground leading-loose mb-6">
+					基于 Astro 框架构建。
+				</p>
+				<div class="flex flex-wrap gap-3">
+					{techStack.map(tech => (
+						<span class={`px-3 py-1.5 rounded-xl text-xs font-bold ${tech.color}`}>
+							{tech.name}
+						</span>
+					))}
+				</div>
+			</div>
+		</div>
+
+		<!-- {/* Stats Bar */}
+		<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+			{stats.map(stat => {
+				const Icon = stat.icon;
+				return (
+					<div class="cute-card flex flex-col items-center gap-3 text-center !py-8">
+						<div class="p-4 rounded-full bg-primary/10 text-primary">
+							<Icon size={28} />
+						</div>
+						<div class="space-y-1">
+							<p class="text-2xl font-black text-foreground">{stat.value}</p>
+							<p class="text-xs uppercase tracking-widest text-muted-foreground font-bold">{stat.label}</p>
+						</div>
+					</div>
+				);
+			})}
+		</section> -->
+
+		{/* Support / Contact */}
+		<section class="cute-card text-center space-y-8 bg-gradient-to-b from-primary/5 to-transparent !p-12">
+			<div class="space-y-4">
+				<h2 class="text-3xl font-black text-primary">联系我</h2>
+				<p class="text-muted-foreground">分享你的想法，或者反馈你的意见，又或者单纯来聊聊</p>
+			</div>
+			
+			<div class="flex flex-wrap justify-center gap-4">
+				<a href="mailto:contact@rtt.li" class="cute-button">
+					<Mail size={18} />
+					<span>发送邮件</span>
+				</a>
+				<a href="https://github.com/stellashiina/amineblog" target="_blank" class="cute-button bg-black text-white hover:bg-black/80">
+					<Github size={18} />
+					<span>开源地址</span>
+				</a>
+			</div>
+
+			<!-- <div class="pt-8 border-t-2 border-border/50">
+				<div class="flex items-center justify-center gap-2 text-primary font-bold">
+					<Coffee size={20} />
+					<span>请我喝杯奶茶？</span>
+				</div>
+				<p class="text-xs text-muted-foreground mt-2">（此功能纯属娱乐，你的热爱就是最大的支持）</p>
+			</div> -->
+		</section>
+	</div>
+</BaseLayout>

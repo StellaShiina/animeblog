@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import BlogFilter from '../components/BlogFilter.tsx';
+import { Image } from 'astro:assets';
+import bgImage from '../assets/homepage_bg_kaju.png';
+import { DEFAULT_MUSIC } from '../store/musicStore';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="AnimeBlog - ACGN 二次元文化分享">
+	<script is:inline define:vars={{ DEFAULT_MUSIC }}>
+		// 由于 nanostores 是 ESM 模块，我们需要通过脚本引入并设置
+		// 但更简单的方式是在 BaseLayout 中处理，或者在这里使用 data 属性传递
+	</script>
+	<div 
+		id="music-data" 
+		data-music={JSON.stringify(DEFAULT_MUSIC)} 
+		style="display: none;"
+	></div>
+
+	<div class="fixed inset-0 -z-10 pointer-events-none">
+		<Image 
+			src={bgImage} 
+			alt="Homepage Background" 
+			quality="max" 
+			class="w-full h-full object-cover opacity-20 dark:opacity-10" 
+		/>
+	</div>
+	
+	<div class="space-y-12">
+		{/* Hero Section */}
+		<section class="text-center space-y-6 py-12">
+			<h1 class="text-4xl md:text-6xl font-black text-primary">
+				✨ 欢迎来到 AnimeBlog ✨
+			</h1>
+			<p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+				这里是一个充满爱与梦想的角落，分享关于 <span class="text-primary font-bold">ACGN</span> 的点点滴滴。
+			</p>
+			<div class="flex justify-center gap-4 pt-4">
+				<div class="p-4 rounded-2xl bg-primary/10 text-primary font-bold flex flex-col items-center">
+					<span class="text-2xl">{posts.length}</span>
+					<span class="text-sm uppercase tracking-wider">分享文章</span>
+				</div>
+				<div class="p-4 rounded-2xl bg-secondary/20 text-primary font-bold flex flex-col items-center">
+					<span class="text-2xl">1</span>
+					<span class="text-sm uppercase tracking-wider">主要分类</span>
+				</div>
+			</div>
+		</section>
+
+		{/* Blog Content with Filter */}
+		<BlogFilter posts={posts} client:load />
+	</div>
+</BaseLayout>

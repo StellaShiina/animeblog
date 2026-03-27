@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--background);
+  --color-muted-foreground: #a0aec0;
+}
+
+@layer base {
+  :root {
+    --primary: #ff85a1;
+    --primary-hover: #ff668a;
+    --secondary: #fbb6ce;
+    --accent: #fbcfe8;
+    --background: #fff5f7;
+    --foreground: #4a5568;
+    --card: #ffffff;
+    --card-foreground: #4a5568;
+    --border: #fed7e2;
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --primary: #ff85a1;
+    --primary-hover: #ff668a;
+    --secondary: #2d1b22;
+    --accent: #3d2b32;
+    --background: #121212;
+    --foreground: #f7fafc;
+    --card: #1e1e1e;
+    --card-foreground: #f7fafc;
+    --border: #333333;
+    --radius: 1.5rem;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Jost', 'Ma Shan Zheng', 'KaiTi', 'STKaiti', serif;
+    font-weight: 700;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: large;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-weight: 700;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: white;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 5px;
+    border: 2px solid var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+}
+
+@layer components {
+  .cute-card {
+    background-color: var(--card);
+    border-radius: var(--radius);
+    border: 2px solid var(--border);
+    padding: 1.5rem;
+    box-shadow: 0 4px 0 var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cute-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 var(--border);
+  }
+
+  .cute-button {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .cute-button:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+  }
+
+  .cute-button:active {
+    transform: scale(0.95);
+  }
+
+  .cute-input {
+    background-color: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.5rem 1.25rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .cute-input:focus {
+    border-color: var(--primary);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}

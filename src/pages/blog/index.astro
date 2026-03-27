@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import BlogFilter from '../../components/BlogFilter.tsx';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const title = "所有博客 - AnimeBlog";
+const description = "浏览 AnimeBlog 所有的二次元文化分享内容。";
+---
+
+<BaseLayout title={title} description={description}>
+	<div id="music-use-default" style="display: none;"></div>
+	<div class="space-y-12 py-8">
+		<header class="text-center space-y-4">
+			<h1 class="text-5xl font-black text-primary">博客档案</h1>
+			<p class="text-muted-foreground text-lg">在这里浏览我们所有的分享内容</p>
+		</header>
+		
+		<BlogFilter posts={posts} client:load />
+	</div>
+</BaseLayout>

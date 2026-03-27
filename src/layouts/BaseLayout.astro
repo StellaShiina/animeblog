@@ -1,0 +1,106 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+import Navbar from '../components/Navbar.tsx';
+import Footer from '../components/Footer.tsx';
+import ReadingProgressBar from '../components/ReadingProgressBar.tsx';
+import BackToTop from '../components/BackToTop.tsx';
+import MusicPlayer from '../components/MusicPlayer.tsx';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'Anime Blog - ACGN 分享', description = '一个可爱粉嫩的二次元文化分享博客' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		
+		{/* Fonts: Quicksand for English/Numbers, ZCOOL KuaiLe for Chinese Titles */}
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+		<!-- <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet"> -->
+		
+		<ClientRouter />
+		<script is:inline>
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					return 'dark';
+				}
+				return 'light';
+			})();
+
+			if (theme === 'dark') {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
+	</head>
+	<body class="min-h-screen flex flex-col">
+		<ReadingProgressBar client:load />
+		<Navbar client:load />
+		<main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
+			<slot />
+		</main>
+		<Footer client:load />
+		<BackToTop client:load />
+		<MusicPlayer client:only="react" transition:persist />
+		
+		<script>
+			import { pageMusicStore, DEFAULT_MUSIC } from '../store/musicStore';
+
+			function updateMusicStore() {
+				const musicData = document.getElementById('music-data');
+				if (musicData) {
+					try {
+						const music = JSON.parse(musicData.getAttribute('data-music') || '');
+						pageMusicStore.set(music);
+					} catch (e) {
+						pageMusicStore.set(null);
+					}
+				} else {
+					const useDefault = document.getElementById('music-use-default');
+					if (useDefault) {
+						pageMusicStore.set(DEFAULT_MUSIC);
+					} else {
+						pageMusicStore.set(null);
+					}
+				}
+			}
+
+			// 初始化设置
+			updateMusicStore();
+
+			// 每次视图转换完成后重新设置
+			document.addEventListener('astro:after-swap', updateMusicStore);
+			document.addEventListener('astro:page-load', updateMusicStore);
+		</script>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+</style>
