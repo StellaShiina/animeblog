@@ -8,7 +8,7 @@ export interface MusicInfo {
 
 // 默认主页音乐
 export const DEFAULT_MUSIC: MusicInfo = {
-  url: '/assets/bgm/HOYO-MiX - 相遇，相别 Meeting and Passing.mp3',
+  url: 'https://s.rtt.li/f/1ohm/HOYO-MiX%20-%20%E7%9B%B8%E9%81%87%EF%BC%8C%E7%9B%B8%E5%88%AB%20Meeting%20and%20Passing.mp3',
   title: 'HOYO-MiX - 相遇，相别 Meeting and Passing',
   artist: 'HOYO-MiX'
 };
